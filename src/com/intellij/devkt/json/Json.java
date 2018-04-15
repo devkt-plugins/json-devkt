@@ -36,7 +36,8 @@ public class Json<T> extends ExtendedDevKtLanguage<T> {
 		if (iElementType == JsonElementTypes.LINE_COMMENT) return colorScheme.getLineComments();
 		else if (iElementType == JsonElementTypes.BLOCK_COMMENT) return colorScheme.getBlockComments();
 		else if (iElementType == JsonElementTypes.NUMBER) return colorScheme.getNumbers();
-		else if (iElementType == JsonElementTypes.STRING_LITERAL) return colorScheme.getProperty();
+		else if (iElementType == JsonElementTypes.SINGLE_QUOTED_STRING) return colorScheme.getString();
+		else if (iElementType == JsonElementTypes.DOUBLE_QUOTED_STRING) return colorScheme.getProperty();
 		else if (iElementType == JsonElementTypes.IDENTIFIER) return colorScheme.getIdentifiers();
 		else if (JsonParserDefinition.JSON_BRACES.contains(iElementType)) return colorScheme.getBraces();
 		else if (JsonParserDefinition.JSON_KEYWORDS.contains(iElementType)) return colorScheme.getKeywords();
