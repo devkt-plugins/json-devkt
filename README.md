@@ -1,9 +1,5 @@
-# plugin-template
+# Json for DevKt
 
-This is the template of the plugin project.
+Json support for devkt.
 
-Things to change before coding:
-
-+ `your-language-devkt` in [settings.gradle.kts](settings.gradle.kts)
-+ `your.package.name` in [build.gradle.kts](build.gradle.kts)
-
+Mention: this plugin supports json with comments.

@@ -6,6 +6,7 @@ import org.ice1000.devkt.openapi.ExtendedDevKtLanguage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement;
+import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement;
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType;
 
 public class Json<T> extends ExtendedDevKtLanguage<T> {
@@ -26,6 +27,7 @@ public class Json<T> extends ExtendedDevKtLanguage<T> {
 
 	@Override
 	public void annotate(PsiElement psiElement, AnnotationHolder<? super T> annotationHolder, ColorScheme<? extends T> colorScheme) {
+		if (psiElement instanceof PsiErrorElement) annotationHolder.highlight(psiElement, colorScheme.getUnknown());
 	}
 
 	@Nullable
