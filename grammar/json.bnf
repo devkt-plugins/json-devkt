@@ -1,19 +1,19 @@
 {
-  parserClass = 'com.intellij.json.JsonParser'
-  parserUtilClass = "com.intellij.json.psi.JsonParserUtil"
-  psiPackage = 'com.intellij.json.psi'
-  psiImplPackage = 'com.intellij.json.psi.impl'
+  parserClass = 'com.intellij.devkt.json.JsonParser'
+  parserUtilClass = "com.intellij.devkt.json.psi.JsonParserUtil"
+  psiPackage = 'com.intellij.devkt.json.psi'
+  psiImplPackage = 'com.intellij.devkt.json.psi.impl'
 
-  elementTypeHolderClass = 'com.intellij.json.JsonElementTypes'
-  elementTypeClass = 'com.intellij.json.JsonElementType'
+  elementTypeHolderClass = 'com.intellij.devkt.json.JsonElementTypes'
+  elementTypeClass = 'com.intellij.devkt.json.JsonElementType'
   psiClassPrefix = "Json"
   psiVisitorName = "JsonElementVisitor"
 
-  psiImplUtilClass = 'com.intellij.json.psi.impl.JsonPsiImplUtils'
-  tokenTypeClass = 'com.intellij.json.JsonTokenType'
+  psiImplUtilClass = 'com.intellij.devkt.json.psi.impl.JsonPsiImplUtils'
+  tokenTypeClass = 'com.intellij.devkt.json.JsonTokenType'
 
-  implements("value") = "com.intellij.json.psi.JsonElement"
-  extends("value") = "com.intellij.json.psi.impl.JsonElementImpl"
+  implements("value") = "com.intellij.devkt.json.psi.JsonElement"
+  extends("value") = "com.intellij.devkt.json.psi.impl.JsonElementImpl"
 
     tokens = [
         L_CURLY='{'
@@ -53,8 +53,7 @@
     extends("array|object")=container
     extends("string_literal|number_literal|boolean_literal|null_literal")=literal
     implements("property")=[
-      "com.intellij.json.psi.JsonElement"
-      "com.intellij.psi.PsiNamedElement"
+      "com.intellij.devkt.json.psi.JsonElement"
     ]
 }
 
@@ -67,7 +66,7 @@ object ::= '{' object_element* '}' {
     findProperty
     getPresentation
   ]
-  mixin="com.intellij.json.psi.impl.JsonObjectMixin"
+  mixin="com.intellij.devkt.json.psi.impl.JsonObjectMixin"
 }
 
 // Hackity-hack to parse array elements and properties even if separating commas are missing,
@@ -86,7 +85,7 @@ property ::= property_name (':' value) {
     value=""
     getPresentation
   ]
-  mixin="com.intellij.json.psi.impl.JsonPropertyMixin"
+  mixin="com.intellij.devkt.json.psi.impl.JsonPropertyMixin"
   pin(".*")=1
 }
 
@@ -111,7 +110,7 @@ string_literal ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING {
     SINGLE_QUOTED_STRING=""
     DOUBLE_QUOTED_STRING=""
   ]
-  mixin="com.intellij.json.psi.impl.JsonStringLiteralMixin"
+  mixin="com.intellij.devkt.json.psi.impl.JsonStringLiteralMixin"
 }
 number_literal ::= NUMBER {
   methods=[
@@ -130,7 +129,7 @@ literal ::= string_literal | number_literal | boolean_literal | null_literal {
   methods=[
     isQuotedString
   ]
-  mixin="com.intellij.json.psi.impl.JsonLiteralMixin"
+  mixin="com.intellij.devkt.json.psi.impl.JsonLiteralMixin"
 }
 
 fake container ::=

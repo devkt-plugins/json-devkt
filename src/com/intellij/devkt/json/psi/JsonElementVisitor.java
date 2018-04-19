@@ -4,7 +4,6 @@ package com.intellij.devkt.json.psi;
 import org.jetbrains.annotations.*;
 import org.jetbrains.kotlin.com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.kotlin.com.intellij.psi.PsiElement;
-import org.jetbrains.kotlin.com.intellij.psi.PsiNamedElement;
 
 public class JsonElementVisitor extends PsiElementVisitor {
 

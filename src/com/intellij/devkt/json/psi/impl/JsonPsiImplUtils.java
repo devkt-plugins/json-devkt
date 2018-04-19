@@ -29,15 +29,15 @@ public class JsonPsiImplUtils {
 	 * but for compatibility with JavaScript integration any JSON literals as well as identifiers (unquoted words)
 	 * are possible and highlighted as error later.
 	 */
-	@NotNull
-	public static JsonValue getNameElement(@NotNull JsonProperty property) {
+	public static @NotNull
+	JsonValue getNameElement(@NotNull JsonProperty property) {
 		final PsiElement firstChild = property.getFirstChild();
 		assert firstChild instanceof JsonLiteral || firstChild instanceof JsonReferenceExpression;
 		return (JsonValue) firstChild;
 	}
 
-	@Nullable
-	public static JsonValue getValue(@NotNull JsonProperty property) {
+	public static @Nullable
+	JsonValue getValue(@NotNull JsonProperty property) {
 		return PsiTreeUtil.getNextSiblingOfType(getNameElement(property), JsonValue.class);
 	}
 
