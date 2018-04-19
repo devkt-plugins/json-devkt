@@ -1,8 +1,7 @@
 package com.intellij.devkt.json;
 
+import org.ice1000.devkt.openapi.ui.IconLoader;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.kotlin.com.intellij.icons.AllIcons;
 import org.jetbrains.kotlin.com.intellij.openapi.fileTypes.LanguageFileType;
 
 import javax.swing.*;
@@ -11,35 +10,36 @@ import javax.swing.*;
  * @author Mikhail Golubev
  */
 public class JsonFileType extends LanguageFileType {
-	public static final JsonFileType INSTANCE = new JsonFileType();
+	public static final @NotNull
+	JsonFileType INSTANCE = new JsonFileType();
 	public static final String DEFAULT_EXTENSION = "json";
+	private Icon icon = IconLoader.getIcon("/icon/json_dark.png");
 
 	public JsonFileType() {
 		super(JsonLanguage.INSTANCE);
 	}
 
-	@NotNull
 	@Override
-	public String getName() {
+	public @NotNull
+	String getName() {
 		return "JSON";
 	}
 
-	@NotNull
 	@Override
-	public String getDescription() {
+	public @NotNull
+	String getDescription() {
 		return "JSON files";
 	}
 
-	@NotNull
 	@Override
-	public String getDefaultExtension() {
+	public @NotNull
+	String getDefaultExtension() {
 		return DEFAULT_EXTENSION;
 	}
 
-	@Nullable
 	@Override
-	public Icon getIcon() {
-		// TODO: add JSON icon instead
-		return AllIcons.FileTypes.Json;
+	public @NotNull
+	Icon getIcon() {
+		return icon;
 	}
 }

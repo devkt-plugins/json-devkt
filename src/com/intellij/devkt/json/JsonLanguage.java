@@ -1,6 +1,6 @@
 package com.intellij.devkt.json;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.kotlin.com.intellij.lang.Language;
 import org.jetbrains.kotlin.com.intellij.openapi.fileTypes.LanguageFileType;
 
@@ -11,9 +11,9 @@ public class JsonLanguage extends Language {
 		super("JSON", "application/json", "application/vnd.api+json", "application/hal+json");
 	}
 
-	@Nullable
 	@Override
-	public LanguageFileType getAssociatedFileType() {
+	public @NotNull
+	LanguageFileType getAssociatedFileType() {
 		return JsonFileType.INSTANCE;
 	}
 

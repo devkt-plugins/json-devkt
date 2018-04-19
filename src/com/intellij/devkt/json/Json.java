@@ -9,11 +9,19 @@ import org.jetbrains.kotlin.com.intellij.psi.PsiElement;
 import org.jetbrains.kotlin.com.intellij.psi.PsiErrorElement;
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType;
 
+import javax.swing.*;
+
 public class Json<T> extends ExtendedDevKtLanguage<T> {
 	@NotNull
 	@Override
 	public String getLineCommentStart() {
 		return "//";
+	}
+
+	@Override
+	public @NotNull
+	Icon getIcon() {
+		return JsonFileType.INSTANCE.getIcon();
 	}
 
 	public Json() {
@@ -30,9 +38,9 @@ public class Json<T> extends ExtendedDevKtLanguage<T> {
 		if (psiElement instanceof PsiErrorElement) annotationHolder.highlight(psiElement, colorScheme.getUnknown());
 	}
 
-	@Nullable
 	@Override
-	public T attributesOf(IElementType iElementType, ColorScheme<? extends T> colorScheme) {
+	public @Nullable
+	T attributesOf(IElementType iElementType, ColorScheme<? extends T> colorScheme) {
 		if (iElementType == JsonElementTypes.LINE_COMMENT) return colorScheme.getLineComments();
 		else if (iElementType == JsonElementTypes.BLOCK_COMMENT) return colorScheme.getBlockComments();
 		else if (iElementType == JsonElementTypes.NUMBER) return colorScheme.getNumbers();
