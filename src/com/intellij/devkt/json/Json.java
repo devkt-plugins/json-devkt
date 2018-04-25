@@ -1,7 +1,10 @@
 package com.intellij.devkt.json;
 
+import kotlin.Pair;
+import org.ice1000.devkt.ASTToken;
 import org.ice1000.devkt.openapi.ColorScheme;
 import org.ice1000.devkt.openapi.ExtendedDevKtLanguage;
+import org.ice1000.devkt.openapi.util.CompletionElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.kotlin.com.intellij.lexer.LayeredLexer;
@@ -12,12 +15,40 @@ import org.jetbrains.kotlin.com.intellij.psi.StringEscapesTokenTypes;
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType;
 
 import javax.swing.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Json<T> extends ExtendedDevKtLanguage<T> {
+
+	private final Pair<String, String> stringPair = new Pair<>("/*", "*/");
+	private final HashSet<CompletionElement> completionElements = new HashSet<>(Arrays.asList(new CompletionElement("null"),
+			new CompletionElement("true"),
+			new CompletionElement("false")));
+
 	@NotNull
 	@Override
 	public String getLineCommentStart() {
 		return "//";
+	}
+
+	@Override
+	public @NotNull Pair<String, String> getBlockComment() {
+		return stringPair;
+	}
+
+	@Override
+	public boolean invokeAutoPopup(@NotNull ASTToken currentElement, @NotNull String inputString) {
+		return inputString.length() == 1 && invokeAutoPopup(inputString.charAt(0));
+	}
+
+	private boolean invokeAutoPopup(char c) {
+		return Character.isAlphabetic(c) || c == '"' || c == ' ' || c == ':';
+	}
+
+	@Override
+	public @NotNull Set<CompletionElement> getInitialCompletionElementList() {
+		return completionElements;
 	}
 
 	@Override
