@@ -4,6 +4,10 @@ import org.ice1000.devkt.openapi.ColorScheme;
 import org.ice1000.devkt.openapi.ExtendedDevKtLanguage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.kotlin.com.intellij.lexer.LayeredLexer;
+import org.jetbrains.kotlin.com.intellij.lexer.Lexer;
+import org.jetbrains.kotlin.com.intellij.lexer.StringLiteralLexer;
+import org.jetbrains.kotlin.com.intellij.openapi.project.Project;
 import org.jetbrains.kotlin.com.intellij.psi.StringEscapesTokenTypes;
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType;
 
@@ -17,8 +21,7 @@ public class Json<T> extends ExtendedDevKtLanguage<T> {
 	}
 
 	@Override
-	public @NotNull
-	Icon getIcon() {
+	public @NotNull Icon getIcon() {
 		return JsonFileType.INSTANCE.getIcon();
 	}
 
@@ -27,19 +30,37 @@ public class Json<T> extends ExtendedDevKtLanguage<T> {
 	}
 
 	@Override
-	public boolean satisfies(String fileName) {
+	public boolean satisfies(@NotNull String fileName) {
 		return fileName.endsWith(".json") || fileName.equals(".pinpoint");
 	}
 
+	public @NotNull Lexer createLexer(@NotNull Project project) {
+		LayeredLexer layeredLexer = new LayeredLexer(new JsonLexer());
+		layeredLexer.registerSelfStoppingLayer(new StringLiteralLexer('\"',
+				JsonElementTypes.DOUBLE_QUOTED_STRING,
+				false,
+				"/",
+				false,
+				false), new IElementType[]{JsonElementTypes.DOUBLE_QUOTED_STRING}, IElementType.EMPTY_ARRAY);
+		layeredLexer.registerSelfStoppingLayer(new StringLiteralLexer('\'',
+				JsonElementTypes.SINGLE_QUOTED_STRING,
+				false,
+				"/",
+				false,
+				false), new IElementType[]{JsonElementTypes.SINGLE_QUOTED_STRING}, IElementType.EMPTY_ARRAY);
+		return layeredLexer;
+	}
+
 	@Override
-	public @Nullable
-	T attributesOf(IElementType iElementType, ColorScheme<? extends T> colorScheme) {
+	public @Nullable T attributesOf(@NotNull IElementType iElementType, @NotNull ColorScheme<? extends T> colorScheme) {
 		if (iElementType == JsonElementTypes.LINE_COMMENT) return colorScheme.getLineComments();
 		else if (iElementType == JsonElementTypes.BLOCK_COMMENT) return colorScheme.getBlockComments();
 		else if (iElementType == JsonElementTypes.NUMBER) return colorScheme.getNumbers();
 		else if (iElementType == JsonElementTypes.SINGLE_QUOTED_STRING) return colorScheme.getString();
 		else if (iElementType == JsonElementTypes.DOUBLE_QUOTED_STRING) return colorScheme.getProperty();
 		else if (iElementType == StringEscapesTokenTypes.VALID_STRING_ESCAPE_TOKEN) return colorScheme.getStringEscape();
+		else if (iElementType == StringEscapesTokenTypes.INVALID_UNICODE_ESCAPE_TOKEN) return colorScheme.getUnknown();
+		else if (iElementType == StringEscapesTokenTypes.INVALID_CHARACTER_ESCAPE_TOKEN) return colorScheme.getUnknown();
 		else if (iElementType == JsonElementTypes.IDENTIFIER) return colorScheme.getIdentifiers();
 		else if (iElementType == JsonElementTypes.COLON) return colorScheme.getColon();
 		else if (iElementType == JsonElementTypes.COMMA) return colorScheme.getComma();

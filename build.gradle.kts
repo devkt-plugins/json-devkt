@@ -1,9 +1,9 @@
 import java.io.*
 
-val kotlinVersion = "1.2.31"
+val kotlinVersion = "1.2.40"
 
 group = "com.intellij.devkt.json"
-version = "v1.0-SNAPSHOT"
+version = "v1.0"
 
 plugins { java }
 
@@ -22,10 +22,13 @@ java.sourceSets {
 repositories {
 	mavenCentral()
 	jcenter()
+	maven("https://jitpack.io")
 }
 
 dependencies {
 	compileOnly(kotlin("compiler-embeddable", kotlinVersion))
-	compileOnly(files(*File("lib").listFiles()))
+	val version = "5a71725385"
+	compileOnly(group = "com.github.ice1000.dev-kt", name = "common", version = version)
+	runtime(group = "com.github.ice1000.dev-kt", name = "swing", version = version)
 }
 
