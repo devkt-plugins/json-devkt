@@ -85,7 +85,6 @@ property ::= property_name (':' value) {
     value=""
     getPresentation
   ]
-  mixin="com.intellij.devkt.json.psi.impl.JsonPropertyMixin"
   pin(".*")=1
 }
 
@@ -110,7 +109,6 @@ string_literal ::= SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING {
     SINGLE_QUOTED_STRING=""
     DOUBLE_QUOTED_STRING=""
   ]
-  mixin="com.intellij.devkt.json.psi.impl.JsonStringLiteralMixin"
 }
 number_literal ::= NUMBER {
   methods=[
@@ -129,7 +127,6 @@ literal ::= string_literal | number_literal | boolean_literal | null_literal {
   methods=[
     isQuotedString
   ]
-  mixin="com.intellij.devkt.json.psi.impl.JsonLiteralMixin"
 }
 
 fake container ::=
