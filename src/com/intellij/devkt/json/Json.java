@@ -1,5 +1,6 @@
 package com.intellij.devkt.json;
 
+import com.intellij.devkt.json.psi.JsonProperty;
 import kotlin.Pair;
 import org.ice1000.devkt.ASTToken;
 import org.ice1000.devkt.openapi.ColorScheme;
@@ -11,6 +12,7 @@ import org.jetbrains.kotlin.com.intellij.lexer.LayeredLexer;
 import org.jetbrains.kotlin.com.intellij.lexer.Lexer;
 import org.jetbrains.kotlin.com.intellij.lexer.StringLiteralLexer;
 import org.jetbrains.kotlin.com.intellij.openapi.project.Project;
+import org.jetbrains.kotlin.com.intellij.psi.PsiElement;
 import org.jetbrains.kotlin.com.intellij.psi.StringEscapesTokenTypes;
 import org.jetbrains.kotlin.com.intellij.psi.tree.IElementType;
 
@@ -44,6 +46,11 @@ public class Json<T> extends ExtendedDevKtLanguage<T> {
 
 	private boolean invokeAutoPopup(char c) {
 		return Character.isAlphabetic(c) || c == '"' || c == ' ' || c == ':';
+	}
+
+	@Override
+	public boolean shouldAddAsCompletion(@NotNull PsiElement element) {
+		return element instanceof JsonProperty;
 	}
 
 	@Override
