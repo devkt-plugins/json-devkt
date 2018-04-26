@@ -5,7 +5,10 @@ val kotlinVersion = "1.2.40"
 group = "com.intellij.devkt.json"
 version = "v1.0"
 
-plugins { java }
+plugins {
+	java
+	application
+}
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_1_8
@@ -23,6 +26,10 @@ repositories {
 	mavenCentral()
 	jcenter()
 	maven("https://jitpack.io")
+}
+
+application {
+	mainClassName = "org.ice1000.devkt.Main"
 }
 
 dependencies {
